@@ -12,6 +12,8 @@ if typing.TYPE_CHECKING:
 class AdminAccessor(BaseAccessor):
     async def connect(self, app: "Application"):
         # TODO: создать админа по данным в config.yml здесь
+
+
         raise NotImplementedError
 
     async def get_by_email(self, email: str) -> Optional[Admin]:
