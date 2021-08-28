@@ -13,6 +13,10 @@ class Database:
     questions: list[Question] = field(default_factory=list)
 
     @property
+    def next_admin_id(self) -> int:
+        return len(self.admins) + 1
+
+    @property
     def next_theme_id(self) -> int:
         return len(self.themes) + 1
 
