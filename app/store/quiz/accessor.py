@@ -11,16 +11,28 @@ class QuizAccessor(BaseAccessor):
         return theme
 
     async def get_theme_by_title(self, title: str) -> Optional[Theme]:
-        raise NotImplementedError
+        themes = self.app.database.themes
+        for theme in themes:
+            if theme.title == title:
+                return theme
+        return None
 
     async def get_theme_by_id(self, id_: int) -> Optional[Theme]:
-        raise NotImplementedError
+        themes = self.app.database.themes
+        for theme in themes:
+            if theme.id == id_:
+                return theme
+        return None
 
     async def list_themes(self) -> list[Theme]:
-        raise NotImplementedError
+        return self.app.database.themes
 
     async def get_question_by_title(self, title: str) -> Optional[Question]:
-        raise NotImplementedError
+        questions = self.app.database.questions
+        for question in questions:
+            if question.title == title:
+                return question
+        return None
 
     async def create_question(
         self, title: str, theme_id: int, answers: list[Answer]
@@ -28,4 +40,4 @@ class QuizAccessor(BaseAccessor):
         raise NotImplementedError
 
     async def list_questions(self, theme_id: Optional[int] = None) -> list[Question]:
-        raise NotImplementedError
+        return self.app.database.questions

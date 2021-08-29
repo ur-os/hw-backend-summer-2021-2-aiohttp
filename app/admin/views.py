@@ -53,8 +53,6 @@ class AdminLoginView(View):
             })
 
 
-
-
 class AdminCurrentView(View):
     async def get(self):
         raise NotImplementedError
