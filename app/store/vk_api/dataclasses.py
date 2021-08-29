@@ -5,9 +5,8 @@ from dataclasses import dataclass
 # поэтому постарайтесь не менять их пожалуйста из-за возможных проблем с тестами
 @dataclass
 class UpdateObject:
-    id: int
-    user_id: int
-    body: str
+    UpdateMessage: UpdateMessage
+
 
 
 @dataclass
