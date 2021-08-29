@@ -20,3 +20,10 @@ class Update:
 class Message:
     user_id: int
     text: str
+
+
+@dataclass
+class UpdateMessage:
+    id: int
+    from_id: int
+    text: str
