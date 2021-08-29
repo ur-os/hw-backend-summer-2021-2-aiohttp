@@ -2,8 +2,11 @@ import json
 import typing
 
 from aiohttp.web_exceptions import HTTPUnprocessableEntity
+from aiohttp.web_exceptions import HTTPMethodNotAllowed
 from aiohttp.web_middlewares import middleware
+from aiohttp.web_response import json_response
 from aiohttp_apispec import validation_middleware
+
 
 from app.web.utils import error_json_response
 
