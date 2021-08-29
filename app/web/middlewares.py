@@ -36,6 +36,12 @@ async def error_handling_middleware(request: "Request", handler):
             message=e.reason,
             data=json.loads(e.text),
         )
+    except Exception as e:
+        return error_json_response(
+            http_status=500,
+            status=HTTP_ERROR_CODES[500],
+            message=str(e)
+        )
     # TODO: обработать все исключения-наследники HTTPException и отдельно Exception, как server error
     #  использовать текст из HTTP_ERROR_CODES
 

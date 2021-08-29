@@ -9,6 +9,7 @@ from app.web.middlewares import HTTP_ERROR_CODES
 class AdminLoginView(View):
     async def post(self):
         data = await self.request.json()
+        1/0
         try:
             data["email"]
         except KeyError:
