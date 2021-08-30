@@ -15,7 +15,7 @@ class AnswerSchema(Schema):
 
 
 class ThemeListSchema(Schema):
-    pass
+    themes = fields.Dict(fields.Nested(ThemeSchema()))
 
 
 class ThemeIdSchema(Schema):

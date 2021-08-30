@@ -6,7 +6,10 @@ from app.quiz.models import Theme, Question, Answer
 
 class QuizAccessor(BaseAccessor):
     async def create_theme(self, title: str) -> Theme:
-        theme = Theme(id=self.app.database.next_theme_id, title=str(title))
+        theme = Theme(
+            id=self.app.database.next_theme_id,
+            title=str(title)
+        )
         self.app.database.themes.append(theme)
         return theme
 
@@ -37,7 +40,13 @@ class QuizAccessor(BaseAccessor):
     async def create_question(
         self, title: str, theme_id: int, answers: list[Answer]
     ) -> Question:
-        raise NotImplementedError
+        question = Question(
+            theme_id=theme_id,
+            title=str(title),
+            answers=answers
+        )
+        self.app.database.questions.append(question)
+        return question
 
     async def list_questions(self, theme_id: Optional[int] = None) -> list[Question]:
-        return self.app.database.questions
+        return [q for q in self.app.database.questions if theme_id == q.theme_id]

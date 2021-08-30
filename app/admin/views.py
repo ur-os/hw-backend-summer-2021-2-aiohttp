@@ -1,6 +1,8 @@
 import re
+import time
 
 from aiohttp.web_response import json_response
+from aiohttp_session import get_session, new_session
 
 from app.web.app import View
 from app.web.middlewares import HTTP_ERROR_CODES
@@ -25,6 +27,9 @@ class AdminLoginView(View):
         email = data["email"]
         admin = await self.request.app.store.admins.get_by_email(email)
         if admin:
+            session = await new_session(self.request)  # new shit
+            session['last_visit'] = time.time()  #
+
             return json_response(
                 status=200,
                 data={
@@ -42,15 +47,6 @@ class AdminLoginView(View):
                     "message": "any message",
                     "data": 403
                 })
-
-    async def get(self):
-        return json_response(
-            status=405,
-            data={
-                "status": HTTP_ERROR_CODES[405],
-                "message": "any message",
-                "data": 405
-            })
 
 
 class AdminCurrentView(View):

@@ -13,6 +13,8 @@ from app.web.config import Config, setup_config
 from app.web.logger import setup_logging
 from app.web.middlewares import setup_middlewares
 from app.web.routes import setup_routes
+from aiohttp_session import get_session, setup
+from aiohttp_session.cookie_storage import EncryptedCookieStorage
 
 
 class Application(AiohttpApplication):
@@ -52,4 +54,5 @@ def setup_app(config_path: str) -> Application:
     setup_routes(app)  # some business here DoNe
     setup_middlewares(app)  # some business here
     setup_store(app)
+    setup(app, EncryptedCookieStorage(b'Thirty  two  length  bytes  key.'))
     return app
