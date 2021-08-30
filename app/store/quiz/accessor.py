@@ -41,6 +41,7 @@ class QuizAccessor(BaseAccessor):
         self, title: str, theme_id: int, answers: list[Answer]
     ) -> Question:
         question = Question(
+            id=self.app.database.next_question_id,
             theme_id=theme_id,
             title=str(title),
             answers=answers
@@ -49,4 +50,7 @@ class QuizAccessor(BaseAccessor):
         return question
 
     async def list_questions(self, theme_id: Optional[int] = None) -> list[Question]:
-        return [q for q in self.app.database.questions if theme_id == q.theme_id]
+        if theme_id is None:
+            return self.app.database.questions
+        result = [q for q in self.app.database.questions if theme_id == q.theme_id]
+        return result

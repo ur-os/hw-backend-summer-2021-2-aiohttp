@@ -27,6 +27,7 @@ class AdminLoginView(View):
         email = data["email"]
         admin = await self.request.app.store.admins.get_by_email(email)
         if admin:
+
             session = await new_session(self.request)  # new shit
             session['last_visit'] = time.time()  #
 

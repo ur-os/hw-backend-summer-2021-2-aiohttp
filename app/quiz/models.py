@@ -16,6 +16,7 @@ class Answer:
 
 @dataclass
 class Question:
+    id: int
     theme_id: int
     title: str
     answers: list[Answer]

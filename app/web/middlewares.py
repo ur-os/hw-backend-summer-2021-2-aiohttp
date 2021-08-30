@@ -1,7 +1,8 @@
 import json
 import typing
 
-from aiohttp.web_exceptions import HTTPUnprocessableEntity, HTTPUnauthorized, HTTPForbidden
+from aiohttp.web_exceptions import HTTPUnprocessableEntity, HTTPUnauthorized, HTTPForbidden, HTTPNotFound, \
+    HTTPBadRequest, HTTPConflict
 from aiohttp.web_exceptions import HTTPMethodNotAllowed
 from aiohttp.web_middlewares import middleware
 from aiohttp.web_response import json_response
@@ -49,8 +50,26 @@ async def error_handling_middleware(request: "Request", handler):
         )
     except HTTPForbidden as e:
         return error_json_response(
+            http_status=403,
+            status=HTTP_ERROR_CODES[403],
+            message=str(e),
+        )
+    except HTTPNotFound as e:
+        return error_json_response(
             http_status=404,
             status=HTTP_ERROR_CODES[404],
+            message=str(e),
+        )
+    except HTTPBadRequest as e:
+        return error_json_response(
+            http_status=400,
+            status=HTTP_ERROR_CODES[400],
+            message=str(e),
+        )
+    except HTTPConflict as e:
+        return error_json_response(
+            http_status=409,
+            status=HTTP_ERROR_CODES[409],
             message=str(e),
         )
     except Exception as e:

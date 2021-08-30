@@ -6,16 +6,20 @@ class ThemeSchema(Schema):
     title = fields.Str(required=True)
 
 
-class QuestionSchema(Schema):
-    pass
-
-
 class AnswerSchema(Schema):
-    pass
+    title = fields.Str()
+    is_correct = fields.Bool()
+
+
+class QuestionSchema(Schema):
+    id = fields.Int()
+    title = fields.Str()
+    theme_id = fields.Int()
+    answers = fields.List(fields.Nested(AnswerSchema()))
 
 
 class ThemeListSchema(Schema):
-    themes = fields.Dict(fields.Nested(ThemeSchema()))
+    themes = fields.List(fields.Nested(ThemeSchema()))
 
 
 class ThemeIdSchema(Schema):
@@ -23,4 +27,4 @@ class ThemeIdSchema(Schema):
 
 
 class ListQuestionSchema(Schema):
-    pass
+    questions = fields.List(fields.Nested(QuestionSchema()))
