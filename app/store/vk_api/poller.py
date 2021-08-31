@@ -12,11 +12,11 @@ class Poller:
 
     async def start(self):
         # TODO: добавить asyncio Task на запуск poll
-        raise NotImplementedError
+        self.poll_task = Task(self.poll())
 
     async def stop(self):
+        self.poll_task.cancel()
         # TODO: gracefully завершить Poller
-        raise NotImplementedError
 
     async def poll(self):
-        raise NotImplementedError
+        await self.store.vk_api.poll()
