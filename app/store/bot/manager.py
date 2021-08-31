@@ -12,5 +12,7 @@ class BotManager:
 
     async def handle_updates(self, updates: list[Update]):
         if updates:
-            await self.app.store.vk_api.send_message(Message(1, "qwe"))
+            from_id = updates[0].object.message.from_id
+            text = updates[0].object.message.text
+            await self.app.store.vk_api.send_message(Message(from_id, text))
         return updates
